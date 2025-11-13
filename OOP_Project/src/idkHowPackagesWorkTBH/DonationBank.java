@@ -1,4 +1,3 @@
-//Harrison this package name says it all, I have no clue what a package is, please help.
 package idkHowPackagesWorkTBH;
 import java.util.*;
 import java.io.*;
@@ -47,16 +46,13 @@ public class DonationBank {
 	// Return - returns true if file opens successfully and adds items, if file fails to open, return false.
 	// Implementation Unfinished.
 	static boolean writeData(String file) throws IOException {
-		if(true) {
-			PrintWriter writeFile = new PrintWriter (file);
-			for(int i = 0; i < items.size(); i++) {
-				writeFile.println(items.get(i).outputItem());
-			}
-			writeFile.close();
-			return true;
-		}else {
-			return false;
+		PrintWriter writeFile = new PrintWriter (file);
+		for(int i = 0; i < items.size(); i++) {
+			writeFile.println(items.get(i).outputItem());
 		}
+		writeFile.close();
+		return true;
+		
 	}
 
 }
