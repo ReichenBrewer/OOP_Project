@@ -18,7 +18,7 @@ public class Item {
 	private String[] keywords = new String[15];  
 	private String desc;
 	//Constructor with no keywords, allows items to be added without keywords
-	Item(int qty, String brand, String name, String section, String type, String desc) {
+	public Item(int qty, String brand, String name, String section, String type, String desc) {
 		this.qty = qty;
 		this.brand = brand; 
 		this.name = name; 
@@ -27,7 +27,7 @@ public class Item {
 		this.desc = desc;
 	}
 	//Constructor to enter all variables of an item at once 
-	Item(int qty, String brand, String name, String section,String type, String keyword, String desc) {
+	public Item(int qty, String brand, String name, String section,String type, String keyword, String desc) {
 		this.qty = qty;
 		this.brand = brand; 
 		this.name = name; 
@@ -37,7 +37,7 @@ public class Item {
 		this.desc = desc;
 	}
 	//Constructor to enter all variables from one string, primary use is whenever reading in a file with items line by line.
-	Item(String input) {
+	public Item(String input) {
 		input.replace("\n", "");
 		String[] Item = input.split(";");
 		this.qty =  Integer.parseInt(Item[0]);
@@ -48,9 +48,20 @@ public class Item {
 		this.setKeywords(Item[5]);
 		this.desc = Item[6];
 	}
+	@Override
+	public String toString() {
+		return this.name;
+	}
 	// Displays an item and all it's attributes to the console. 
-	void displayItem() {
-		System.out.print("Quantity: " + qty + "\nBrand: " + brand + "\nName: " + name + "\nSection: " + section + "\nType: " + type + "\nKeywords: ");
+	public void displayItem() {
+		System.out.print(
+			"Quantity: " + this.qty
+			+ "\nBrand: " + this.brand
+			+ "\nName: " + this.name
+			+ "\nSection: " + this.section
+			+ "\nType: " + this.type
+			+ "\nKeywords: "
+		);
 		for(String i:keywords) {
 			System.out.print(i + ", ");
 		}
@@ -58,7 +69,7 @@ public class Item {
 		System.out.println("\nItem Description: " + desc);
 	}
 	// Returns an item with the same formatting used as the input in the single string constructor 
-	String outputItem() {
+	public String outputItem() {
 		String output;
 		output = (qty +";" + brand +";" + name +";" + section + ";" + type +";");
 		for(String i:keywords) {
@@ -70,49 +81,49 @@ public class Item {
 	}
 	
 	// All Getters and Setters for Private Variables 
-	int getQuantity() {
+	public int getQuantity() {
 		return qty;
 	}
-	String getBrand() {
+	public String getBrand() {
 		return brand;
 	} 
-	String getName() {
+	public String getName() {
 		return name;
 	} 
-	String getSection() {
+	public String getSection() {
 		return section;
 	}
-	String getType () {
+	public String getType () {
 		return type;
 	} 
-	String[] getKeywords () {
+	public String[] getKeywords () {
 		return keywords;
 	}  
-	String getDescription() {
+	public String getDescription() {
 		return desc;
 	}
 	
-	void setQuantity(int qty) {
+	public void setQuantity(int qty) {
 		this.qty = qty;
 	}
-	void setBrand(String brand) {
+	public void setBrand(String brand) {
 		this.brand = brand;
 	} 
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	} 
-	void setSection(String section) {
+	public void setSection(String section) {
 		this.section = section;
 	}
 
 	// String keyword - a list of keywords inputted as a String with "|" between each keyword to be added
-	void setKeywords(String keyword) {
+	public void setKeywords(String keyword) {
 		this.keywords = keyword.split("\\|");
 	}
-	void setType (String type) {
+	public void setType (String type) {
 		this.type = type;
 	} 
-	void setDescription(String desc) {
+	public void setDescription(String desc) {
 		this.desc = desc;
 	}
 }
