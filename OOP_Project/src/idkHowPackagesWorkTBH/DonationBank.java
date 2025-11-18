@@ -11,11 +11,26 @@ public class DonationBank {
 	final static String fileName = "data.txt";
 	
 	public static void main(String[] args) throws IOException{
+		
+		System.out.print("Hello, and welcome to the Donation Bank's Database, how can we help you today?"
+						+ "1. Donate an Item"
+						+ "2. Search for an Item"
+						+ "3. Purchase an Item"
+						+ "4. See Admin Commands"
+				);
 		readData(fileName);
 		for(int i = 0; i < items.size(); i++) {
 			items.get(i).displayItem();
 		}
 		writeData(fileName);
+	}
+	
+	// Function that allows you to access commands general customers should not have access to.
+	public static void adminCommands() {
+		System.out.print("Thank you for Accessing the Admin Terminal, please choose the action you would like to take:"
+				+ "1. Remove an Item"
+				+ "2. Edit Product Info"
+		);
 	}
 	
 	// Reads the data from the file and adds it to the items ArrayList
@@ -97,4 +112,3 @@ public class DonationBank {
 	}
 
 }
-

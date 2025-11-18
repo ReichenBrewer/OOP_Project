@@ -8,7 +8,7 @@ package idkHowPackagesWorkTBH;
 // String section - Where you can find it in the bank, such as "North" "East" or "Center"
 // String type - What type of product it is, such as "Cosmetics" or "Food"
 // String[] keywords - Words that someone may want to search for this item by, such as "Vegan" or "Dishwasher-Safe" 
-// String desc - A description of the item that can be outputted to a customer if they want to know about an item.
+// String desc - A description of the item that can be outputed to a customer if they want to know about an item.
 public class Item {
 	private int qty;
 	private String brand; 
@@ -24,6 +24,7 @@ public class Item {
 		this.name = name; 
 		this.section = section;
 		this.type = type;   
+		this.setKeywords("N/A");
 		this.desc = desc;
 	}
 	//Constructor to enter all variables of an item at once 
@@ -55,18 +56,18 @@ public class Item {
 	// Displays an item and all it's attributes to the console. 
 	public void displayItem() {
 		System.out.print(
-			"Quantity: " + this.qty
+			"Name: " + this.name
 			+ "\nBrand: " + this.brand
-			+ "\nName: " + this.name
+			+ "\nIn Stock: " + this.qty
 			+ "\nSection: " + this.section
-			+ "\nType: " + this.type
-			+ "\nKeywords: "
-		);
-		for(String i:keywords) {
-			System.out.print(i + ", ");
+			+ "\nType: " + this.type);
+		if(!keywords[0].equals("N/A")) {
+		System.out.print("\nKeywords: ");
+			for(String i:keywords) {
+				System.out.print(i + ", ");
+			}
 		}
-		
-		System.out.println("\nItem Description: " + desc);
+		System.out.println("\nItem Description: " + desc + "\n");
 	}
 	// Returns an item with the same formatting used as the input in the single string constructor 
 	public String outputItem() {
@@ -78,6 +79,22 @@ public class Item {
 		
 		output += ";" + desc;
 		return output;
+	}
+	// function to represent a customer buying an item, returns false if no items are left in stock
+	public boolean purchase() {
+		if(qty > 0) {
+			qty--;
+			return true;
+		}
+		return false;
+	}
+	// Overloaded function for purchase, allows for a customer to buy in bulk
+	public boolean purchase(int amount) {
+		if(qty >= amount) {
+			qty -= amount;
+			return true;
+		}
+		return false;
 	}
 	
 	// All Getters and Setters for Private Variables 
@@ -116,7 +133,7 @@ public class Item {
 		this.section = section;
 	}
 
-	// String keyword - a list of keywords inputted as a String with "|" between each keyword to be added
+	// String keyword - a list of keywords inputed as a String with "|" between each keyword to be added
 	public void setKeywords(String keyword) {
 		this.keywords = keyword.split("\\|");
 	}
