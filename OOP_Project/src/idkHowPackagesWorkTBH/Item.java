@@ -2,52 +2,52 @@ package idkHowPackagesWorkTBH;
 
 // Item Class
 //
-// int qty - How many items the donation bank has in stock.
+// int quantity - How many items the donation bank has in stock.
 // String brand - The brand of the item, such as "General Mills" or "President's Choice" 
 // String name - The name of the item, such as "Cheerios" or "Triscuits" 
 // String section - Where you can find it in the bank, such as "North" "East" or "Center"
 // String type - What type of product it is, such as "Cosmetics" or "Food"
 // String[] keywords - Words that someone may want to search for this item by, such as "Vegan" or "Dishwasher-Safe" 
-// String desc - A description of the item that can be outputed to a customer if they want to know about an item.
+// String description - A description of the item that can be outputed to a customer if they want to know about an item.
 public class Item {
-	private int qty;
+	private int quantity;
 	private String brand; 
 	private String name; 
 	private String section;
 	private String type; 
 	private String[] keywords = new String[15];  
-	private String desc;
+	private String description;
 	//Constructor with no keywords, allows items to be added without keywords
-	public Item(int qty, String brand, String name, String section, String type, String desc) {
-		this.qty = qty;
+	public Item(int quantity, String brand, String name, String section, String type, String description) {
+		this.quantity = quantity;
 		this.brand = brand; 
 		this.name = name; 
 		this.section = section;
 		this.type = type;   
 		this.setKeywords("N/A");
-		this.desc = desc;
+		this.description = description;
 	}
 	//Constructor to enter all variables of an item at once 
-	public Item(int qty, String brand, String name, String section,String type, String keyword, String desc) {
-		this.qty = qty;
+	public Item(int quantity, String brand, String name, String section,String type, String keyword, String description) {
+		this.quantity = quantity;
 		this.brand = brand; 
 		this.name = name; 
 		this.section = section;
 		this.type = type;   
 		this.setKeywords(keyword);
-		this.desc = desc;
+		this.description = description;
 	}
 	//Constructor to enter all variables from one string, primary use is whenever reading in a file with items line by line.
 	public Item(String input) {
 		input.replace("\n", "");
 		String[] Item = input.split(";");
-		this.qty =  Integer.parseInt(Item[0]);
+		this.quantity =  Integer.parseInt(Item[0]);
 		this.brand = Item[1]; 
 		this.name = Item[2]; 
 		this.section = Item[3];  
 		this.type = Item[4];   
 		this.setKeywords(Item[5]);
-		this.desc = Item[6];
+		this.description = Item[6];
 	}
 	@Override
 	public String toString() {
@@ -58,7 +58,7 @@ public class Item {
 		System.out.print(
 			"Name: " + this.name
 			+ "\nBrand: " + this.brand
-			+ "\nIn Stock: " + this.qty
+			+ "\nIn Stock: " + this.quantity
 			+ "\nSection: " + this.section
 			+ "\nType: " + this.type);
 		if(!keywords[0].equals("N/A")) {
@@ -67,31 +67,31 @@ public class Item {
 				System.out.print(i + ", ");
 			}
 		}
-		System.out.println("\nItem Description: " + desc + "\n");
+		System.out.println("\nItem Description: " + description + "\n");
 	}
 	// Returns an item with the same formatting used as the input in the single string constructor 
 	public String outputItem() {
 		String output;
-		output = (qty +";" + brand +";" + name +";" + section + ";" + type +";");
+		output = (quantity +";" + brand +";" + name +";" + section + ";" + type +";");
 		for(String i:keywords) {
 			output += i + "|";
 		}
 		
-		output += ";" + desc;
+		output += ";" + description;
 		return output;
 	}
 	// function to represent a customer buying an item, returns false if no items are left in stock
 	public boolean purchase() {
-		if(qty > 0) {
-			qty--;
+		if(quantity > 0) {
+			quantity--;
 			return true;
 		}
 		return false;
 	}
 	// Overloaded function for purchase, allows for a customer to buy in bulk
 	public boolean purchase(int amount) {
-		if(qty >= amount) {
-			qty -= amount;
+		if(quantity >= amount) {
+			quantity -= amount;
 			return true;
 		}
 		return false;
@@ -99,7 +99,7 @@ public class Item {
 	
 	// All Getters and Setters for Private Variables 
 	public int getQuantity() {
-		return qty;
+		return quantity;
 	}
 	public String getBrand() {
 		return brand;
@@ -117,11 +117,11 @@ public class Item {
 		return keywords;
 	}  
 	public String getDescription() {
-		return desc;
+		return description;
 	}
 	
-	public void setQuantity(int qty) {
-		this.qty = qty;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public void setBrand(String brand) {
 		this.brand = brand;
@@ -140,7 +140,7 @@ public class Item {
 	public void setType (String type) {
 		this.type = type;
 	} 
-	public void setDescription(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
