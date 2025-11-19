@@ -165,7 +165,7 @@ public class DonationBank {
 	public static ArrayList<Item> getItemsByName(String name) {
 		ArrayList<Item> list = new ArrayList<Item>(items.size());
 		for (Item item : items) {
-			if(item.getName().equalsIgnoreCase(name)) {
+			if(item.getName().toLowerCase().contains(name.toLowerCase())) {
 				list.add(item);
 			}
 		}
@@ -177,7 +177,7 @@ public class DonationBank {
 	public static ArrayList<Item> getItemsByType(String type) {
 		ArrayList<Item> list = new ArrayList<Item>(items.size());
 		for (Item item : items) {
-			if(item.getType().equalsIgnoreCase(type)) {
+			if(item.getType().toLowerCase().contains(type.toLowerCase())) {
 				list.add(item);
 			}
 		}
