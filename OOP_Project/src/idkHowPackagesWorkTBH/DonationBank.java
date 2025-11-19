@@ -8,11 +8,11 @@ public class DonationBank {
 	//ArrayList to store all the items that the Food Bank Has
 	static ArrayList<Item> items = new ArrayList<Item>();
 	//File name for both input and output
-	final static String fileName = "data.txt";
-	
+	final static String FILE_NAME = "data.txt";
+	final static String ADMIN_PASSWORD = "1234";
 	public static void main(String[] args) throws IOException{
 		int choice = 0;
-		readData(fileName);
+		readData(FILE_NAME);
 		Scanner sc = new Scanner(System.in);
 		while(choice != 5) {
 			System.out.print("Hello, and welcome to the Donation Bank's Database, how can we help you today?"
@@ -64,7 +64,7 @@ public class DonationBank {
 				String lookup = "food";
 				System.out.print("Enter Search Term: ");
 				lookup = sc.nextLine();
-				System.out.println("\nSearch Results for Items Relating to " + lookup + ": ");
+				System.out.println("\nSearch Results for Items Relating to \"" + lookup + "\": ");
 				ArrayList<Item> search = getItemsByName(lookup);
 				search.addAll(getItemsByType(lookup));
 				search.addAll(getItemsByKeyword(lookup));
@@ -89,13 +89,18 @@ public class DonationBank {
 					}
 				}
 				if(!exists) {
-					System.out.println(input + " does not exist in our system, please try searchin for an item before purchasing.");	
+					System.out.println(input + " does not exist in our system, please try searching for an item before purchasing.");	
 				}
 				break;
 			// Ask for a password, then give Admin commands
 			case 4:
-				//Implement Password!!!
-				adminCommands();
+				System.out.print("Enter the Admin Password: ");
+				String passwordAttempt = sc.nextLine();
+				if(passwordAttempt.equals(ADMIN_PASSWORD)) {
+					adminCommands(sc);
+				}else {
+					System.out.println("Password inputted does not match the expected password.");
+				}
 				break;
 			// Exit Program
 			case 5:
@@ -109,19 +114,136 @@ public class DonationBank {
 			
 		}
 		sc.close();
-		writeData(fileName);
+		writeData(FILE_NAME);
 		System.out.println("Program Exitted Safely");
 	}
 	
 	// Function that allows you to access commands general customers should not have access to.
-	public static void adminCommands() {
+	public static void adminCommands(Scanner sc) {
 		System.out.print("Thank you for Accessing the Admin Terminal, please choose the action you would like to take:"
 				+ "\n1. Remove an Item"
 				+ "\n2. Edit Product Info"
 				+ "\n3. Display Full Inventory"
-				+ "\n4. Exit Admin Terminal"
+				+ "\n4. Exit Admin Terminal\n"
 		);
+		int choice = sc.nextInt();
+		sc.nextLine();
+		
+		
+		switch (choice) {
+			// Remove an item for the list
+			case 1:
+				System.out.print("Name of the Item you want to remove: ");
+				String input = sc.nextLine();
+				boolean exists = false;
+				for(int i = 0; i < items.size(); i++) {
+					if(items.get(i).getName().equalsIgnoreCase(input)) {
+						exists = true;
+						System.out.println("Successfully Removed " + items.get(i).getName());		
+						items.remove(i);
+					}
+				}
+				if(!exists) {
+					System.out.println(input + " does not exist in our system, please try searching for an item before removing it.");	
+				}
+				break;
+			// Edit the product info
+			case 2:
+				System.out.print("Name of the Item you want to Edit: ");
+				String inputItem = sc.nextLine();
+				boolean itemExists = false;
+				for(int i = 0; i < items.size(); i++) {
+					if(items.get(i).getName().equalsIgnoreCase(inputItem)) {
+						itemExists = true;	
+						System.out.print("What do you want to modify about " + items.get(i).getName() + ":"
+								+ "\n1. Change Name"
+								+ "\n2. Change Brand"
+								+ "\n3. Change Stock"
+								+ "\n4. Change Location"
+								+ "\n5. Change Type"
+								+ "\n6. Change Keywords"
+								+ "\n7. Change Description\n"
+						);
+						choice = sc.nextInt();
+						sc.nextLine();
+						items.set(i, editItemInfo(items.get(i), choice, sc));
+					}
+				}
+				if(!itemExists) {
+					System.out.println(inputItem + " does not exist in our system, please try searching for an item before editing it.");	
+				}
+				break;
+			// Display All Items in the system
+			case 3:
+				System.out.println("-------------------------------------------------------------\n"
+								+ "Full Inventory at the Donation Bank: \n"
+								+ "-------------------------------------------------------------");
+				
+				printAllItems(items);
+				break;
+			case 4:
+				break;
+			default:
+				System.out.println("Unknown input, please input a valid number.");
+				break;
+		}
 	}
+	
+	// Takes in an Item and allows an admin to make modifications to it
+	//
+	// Item toEdit - the Item object to be operated on
+	public static Item editItemInfo(Item toEdit, int operation, Scanner sc) {
+		String input = "";
+		switch (operation) {
+		// Change the Name of the Item
+			case 1:
+				System.out.print("What would you like to change the name of "+ toEdit.getName() + " to? (Currently " + toEdit.getName() + ") : ");
+				input = sc.nextLine();
+				toEdit.setName(input);
+				break;
+		// Change the Brand of the Item
+			case 2:
+				System.out.print("What would you like to change the brand of "+ toEdit.getName() + " to? (Currently " + toEdit.getBrand() + ") : ");
+				input = sc.nextLine();
+				toEdit.setBrand(input);
+				break;
+		// Change the Current Stock of the Item
+			case 3:
+				System.out.print("What would you like to change the quantity of "+ toEdit.getName() + " to? (Currently " + toEdit.getQuantity() + ") : ");
+				int num = sc.nextInt();
+				toEdit.setQuantity(num);
+				sc.nextLine();
+				break;
+		// Change the Location of the Item
+			case 4:
+				System.out.print("What would you like to change the location of "+ toEdit.getName() + " to? (Currently " + toEdit.getSection() + ") : ");
+				input = sc.nextLine();
+				toEdit.setSection(input);
+				break;
+		// Change the Type of the Item
+			case 5:
+				System.out.print("What would you like to change the type of "+ toEdit.getName() + " to? (Currently " + toEdit.getType() + ") : ");
+				input = sc.nextLine();
+				toEdit.setType(input);
+				break;
+		// Change the Keywords of the Item
+			case 6:
+				System.out.print("What would you like to change the keywords of "+ toEdit.getName() + " to? (Break up multiple keywords with the \"|\" character): ");
+				input = sc.nextLine();
+				toEdit.setKeywords(input);
+				break;
+		// Change the Description of the Item
+			case 7:
+				System.out.print("What would you like to change the description of "+ toEdit.getName() + " to? (Currently " + toEdit.getDescription() + ") : ");
+				input = sc.nextLine();
+				toEdit.setDescription(input);
+				break;
+			default:
+				System.out.print("Unknown input, please input a valid number.");
+		}
+		return toEdit;
+	}
+	
 	
 	// Reads the data from the file and adds it to the items ArrayList
 	//
@@ -192,7 +314,7 @@ public class DonationBank {
 		for (Item item : items) {
 			String[] keywords = item.getKeywords();
 			for (String kwd : keywords) {
-				if (kwd.equalsIgnoreCase(keyword)) {
+				if (kwd.toLowerCase().contains(keyword.toLowerCase())) {
 					list.add(item);
 					break; // in case we have duplicate keyword, which WILL happen (humans are stupid)
 				}

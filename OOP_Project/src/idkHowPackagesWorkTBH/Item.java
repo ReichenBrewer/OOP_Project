@@ -5,7 +5,7 @@ package idkHowPackagesWorkTBH;
 // int quantity - How many items the donation bank has in stock.
 // String brand - The brand of the item, such as "General Mills" or "President's Choice" 
 // String name - The name of the item, such as "Cheerios" or "Triscuits" 
-// String section - Where you can find it in the bank, such as "North" "East" or "Center"
+// String section - Where you can find it in the bank, such as "Snacks" "Refrigerator" or "Men's Clothing"
 // String type - What type of product it is, such as "Cosmetics" or "Food"
 // String[] keywords - Words that someone may want to search for this item by, such as "Vegan" or "Dishwasher-Safe" 
 // String description - A description of the item that can be outputed to a customer if they want to know about an item.
