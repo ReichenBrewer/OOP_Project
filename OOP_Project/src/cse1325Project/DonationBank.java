@@ -10,7 +10,7 @@ public class DonationBank {
 	//File name for both input and output
 	final static String FILE_NAME = "data.txt";
 	final static String ADMIN_PASSWORD = "1234";
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		int choice = 0;
 		readData(FILE_NAME);
 		Scanner sc = new Scanner(System.in);
@@ -19,12 +19,15 @@ public class DonationBank {
 							+ "\n1. Donate an Item"
 							+ "\n2. Search for an Item"
 							+ "\n3. Purchase an Item"
-							+ "\n4. See Admin Commands"
+							+ "\n4. Use Admin Commands"
 							+ "\n5. Exit\n"
 					);
+			while (!sc.hasNextInt()) {
+				System.out.println("Invalid input.");
+				sc.next();
+			}
 			choice = sc.nextInt();
 			sc.nextLine();
-			
 			
 			switch (choice) {
 			// Donating an Item
@@ -120,73 +123,81 @@ public class DonationBank {
 	
 	// Function that allows you to access commands general customers should not have access to.
 	public static void adminCommands(Scanner sc) {
-		System.out.print("Thank you for Accessing the Admin Terminal, please choose the action you would like to take:"
-				+ "\n1. Remove an Item"
-				+ "\n2. Edit Product Info"
-				+ "\n3. Display Full Inventory"
-				+ "\n4. Exit Admin Terminal\n"
-		);
-		int choice = sc.nextInt();
-		sc.nextLine();
-		
-		
-		switch (choice) {
-			// Remove an item for the list
-			case 1:
-				System.out.print("Name of the Item you want to remove: ");
-				String input = sc.nextLine();
-				boolean exists = false;
-				for(int i = 0; i < items.size(); i++) {
-					if(items.get(i).getName().equalsIgnoreCase(input)) {
-						exists = true;
-						System.out.println("Successfully Removed " + items.get(i).getName());		
-						items.remove(i);
+
+		int choice = 0;
+
+		do {
+			System.out.print("Thank you for Accessing the Admin Command Line; please choose the action you would like to take:"
+					+ "\n1. Remove an Item"
+					+ "\n2. Edit Product Info"
+					+ "\n3. Display Full Inventory"
+					+ "\n4. Exit Admin Terminal\n"
+			);
+			while (!sc.hasNextInt()) {
+				System.out.println("Invalid input.");
+				sc.next();
+			}
+			choice = sc.nextInt();
+			sc.nextLine();
+			
+			switch (choice) {
+				// Remove an item for the list
+				case 1:
+					System.out.print("Name of the Item you want to remove: ");
+					String input = sc.nextLine();
+					boolean exists = false;
+					for(int i = 0; i < items.size(); i++) {
+						if(items.get(i).getName().equalsIgnoreCase(input)) {
+							exists = true;
+							System.out.println("Successfully Removed " + items.get(i).getName());		
+							items.remove(i);
+						}
 					}
-				}
-				if(!exists) {
-					System.out.println(input + " does not exist in our system, please try searching for an item before removing it.");	
-				}
-				break;
-			// Edit the product info
-			case 2:
-				System.out.print("Name of the Item you want to Edit: ");
-				String inputItem = sc.nextLine();
-				boolean itemExists = false;
-				for(int i = 0; i < items.size(); i++) {
-					if(items.get(i).getName().equalsIgnoreCase(inputItem)) {
-						itemExists = true;	
-						System.out.print("What do you want to modify about " + items.get(i).getName() + ":"
-								+ "\n1. Change Name"
-								+ "\n2. Change Brand"
-								+ "\n3. Change Stock"
-								+ "\n4. Change Location"
-								+ "\n5. Change Type"
-								+ "\n6. Change Keywords"
-								+ "\n7. Change Description\n"
-						);
-						choice = sc.nextInt();
-						sc.nextLine();
-						items.set(i, editItemInfo(items.get(i), choice, sc));
+					if(!exists) {
+						System.out.println(input + " does not exist in our system, please try searching for an item before removing it.");	
 					}
-				}
-				if(!itemExists) {
-					System.out.println(inputItem + " does not exist in our system, please try searching for an item before editing it.");	
-				}
-				break;
-			// Display All Items in the system
-			case 3:
-				System.out.println("-------------------------------------------------------------\n"
-								+ "Full Inventory at the Donation Bank: \n"
-								+ "-------------------------------------------------------------");
-				
-				printAllItems(items);
-				break;
-			case 4:
-				break;
-			default:
-				System.out.println("Unknown input, please input a valid number.");
-				break;
-		}
+					break;
+				// Edit the product info
+				case 2:
+					System.out.print("Name of the Item you want to Edit: ");
+					String inputItem = sc.nextLine();
+					boolean itemExists = false;
+					for(int i = 0; i < items.size(); i++) {
+						if(items.get(i).getName().equalsIgnoreCase(inputItem)) {
+							itemExists = true;	
+							System.out.print("What do you want to modify about " + items.get(i).getName() + ":"
+									+ "\n1. Change Name"
+									+ "\n2. Change Brand"
+									+ "\n3. Change Stock"
+									+ "\n4. Change Location"
+									+ "\n5. Change Type"
+									+ "\n6. Change Keywords"
+									+ "\n7. Change Description\n"
+							);
+							choice = sc.nextInt();
+							sc.nextLine();
+							items.set(i, editItemInfo(items.get(i), choice, sc));
+						}
+					}
+					if(!itemExists) {
+						System.out.println(inputItem + " does not exist in our system, please try searching for an item before editing it.");	
+					}
+					break;
+				// Display All Items in the system
+				case 3:
+					System.out.println("-------------------------------------------------------------\n"
+									+ "Full Inventory at the Donation Bank: \n"
+									+ "-------------------------------------------------------------");
+					
+					printAllItems(items);
+					break;
+				case 4:
+					break;
+				default:
+					System.out.println("Unknown input, please input a valid number.");
+					break;
+			}
+		} while (choice != 4);
 	}
 	
 	// Takes in an Item and allows an admin to make modifications to it

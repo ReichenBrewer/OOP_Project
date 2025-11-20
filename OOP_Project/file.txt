@@ -1,9 +1,0 @@
-10;General Mills;Cheerios;Breakfast;Food;N/A|;A whole grain oat cereal shaped like small "o"s
-13;Levi's;Jeans;Men's Clothing;Clothing;N/A|;Pants made of denim cloth
-34;Vital Farms;Eggs;Refrigerator;Food;N/A|;Chicken eggs, can be used in a variety of recipies 
-43;GoGo Squeez;Applesauce On the Go Pouch;Snacks;Food;N/A|;A small pouch of apple sauce with a screw on lid, good for taking on the go
-6;Johnson's;Baby Powder;Medical;Baby;N/A|;Hypoallergenic, dermatologist-tested, and specially designed for baby's delicate skin.
-14;General Mills;Chex Mix;Snacks;Food;N/A|;A savory snack with Chex pieces, rye chips, and pretzels 
-7;Pampers;Diapers;Warehouse;Baby;N/A|;It's a Diaper IDK
-5;Mondelez;Roasted Garlic Triscuit;Snacks;Food;N/A|;Roasted garlic flavor complements the baked 100% whole grain wheat base
-0;Ripple;Unsweetened Plant-Based Milk;Refrigerator;Food;N/A|;Ripple Unsweetened Original plant-based milk has a super clean taste
