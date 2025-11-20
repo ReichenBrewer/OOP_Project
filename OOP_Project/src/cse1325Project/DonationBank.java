@@ -98,7 +98,7 @@ public class DonationBank {
 				String passwordAttempt = sc.nextLine();
 				if(passwordAttempt.equals(ADMIN_PASSWORD)) {
 					adminCommands(sc);
-				}else {
+				} else {
 					System.out.println("Password inputted does not match the expected password.");
 				}
 				break;
@@ -192,6 +192,14 @@ public class DonationBank {
 	// Takes in an Item and allows an admin to make modifications to it
 	//
 	// Item toEdit - the Item object to be operated on
+	// int operation - an integer denoting the operation to be taken on the Item;
+	//	1: Change the Name
+	//	2: Change the Brand
+	//	3: Change the Stock
+	//	4: Change the Section
+	//	5: Change the Type
+	//	6: Change the Keywords
+	//	7: Change the Description
 	public static Item editItemInfo(Item toEdit, int operation, Scanner sc) {
 		String input = "";
 		switch (operation) {
@@ -243,7 +251,6 @@ public class DonationBank {
 		}
 		return toEdit;
 	}
-	
 	
 	// Reads the data from the file and adds it to the items ArrayList
 	//
@@ -322,7 +329,6 @@ public class DonationBank {
 		}
 		return list;
 	}
-	
 	
 	// Function to output all data from an array of Items
 	public static void printAllItems(ArrayList<Item> items) {
